@@ -2,6 +2,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login-page',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 export class LoginPage {
   // loginFormGroup = new FormControl("LoginPage");
   email :any= "";
-  private apiUrl = "http://localhost:8080/app/login";
+  private apiUrl = environment.userLogin;
   constructor(private http: HttpClient , private router: Router) {}
 
   loginFormGroup = new FormGroup({

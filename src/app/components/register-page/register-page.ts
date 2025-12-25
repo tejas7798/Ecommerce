@@ -2,6 +2,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   standalone: true,
@@ -14,7 +15,7 @@ export class RegisterPage {
   
   constructor(private http: HttpClient , private router: Router) {}
   
-  private apiUrl = "http://localhost:8080/app/login/register";
+  private apiUrl = environment.userRegister;
   registerData = {
     username: '',
     email: '',

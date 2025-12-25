@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatRippleModule } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-cart-details',
@@ -15,10 +16,10 @@ import { Router } from '@angular/router';
 })
 
 export class CartDetails {
-  private apiUrl = "http://localhost:8080/cart";
-  private getUserCartDetails:any = "http://localhost:8080/cart/:username"; 
-  private getProductApiUrl = "http://localhost:8080/api/products/:id"; 
-  
+  private getUserCartDetails:any = environment.getUserName; 
+  private getProductApiUrl = environment.getProductById; 
+  private deleteProductsFromCart = environment.deleteProductsFromCart;
+
   public username :String ="";
   public products: any = [];
   cartProductIds :any =[];
@@ -58,7 +59,7 @@ export class CartDetails {
 
   
   removeFromCart(product:any){
-    const url = "http://localhost:8080/cart/deleteCartItem";
+    const url = environment.deleteProductsFromCart;
     const body:{} = { 
       username : this.username,
       productId : product.id
@@ -73,7 +74,7 @@ export class CartDetails {
     };
 
     console.log("Payload Token "+ payloadToken);
-    this.getToken("http://localhost:8080/get/token",payloadToken).subscribe({
+    this.getToken(environment.getToken,payloadToken).subscribe({
       next: (res:any) => {
         if(res.TOKEN !== ""){
           console.log("is the TOKEN : " +res.TOKEN )

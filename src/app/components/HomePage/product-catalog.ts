@@ -4,6 +4,7 @@ import { Component, importProvidersFrom } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatRippleModule } from '@angular/material/core';
+import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-product-catalog',
   standalone :true,
@@ -13,7 +14,7 @@ import { MatRippleModule } from '@angular/material/core';
 })
 
 export class HomePage {
-  private apiUrl = "http://localhost:8080/api/products";
+  private apiUrl = environment.getProducts;
   public products: any = [];
   constructor(private http: HttpClient) {}
   
@@ -56,7 +57,7 @@ export class HomePage {
   } 
 
   addToCart(product:any){
-    const url = "http://localhost:8080/cart/addToCart";
+    const url = environment.addToCart;
     const body:{} = { 
       username : this.username,
       productId : product.id
@@ -70,7 +71,7 @@ export class HomePage {
       secret : this.username 
     };
 
-    this.getToken("http://localhost:8080/get/token",payloadToken).subscribe({
+    this.getToken(environment.getToken,payloadToken).subscribe({
       next: (res:any) => {
         if(res.TOKEN !== ""){
           localStorage.setItem("TOKEN", res.TOKEN);
