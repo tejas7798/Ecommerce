@@ -58,8 +58,6 @@
         "serve": {
           "builder": "@angular/build:dev-server",
           "options": {
-            "browserTarget": "my-app:build",
-            "disableHostCheck": true
           },
           "configurations": {
             "production": {
