@@ -1,6 +1,6 @@
 [build]
   command = "ng build"
-  publish = "dist/electronic-ecommerce-shop"
+  publish = "dist/FrontEnd"
 
 [[redirects]]
   from = "/*"
