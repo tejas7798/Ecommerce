@@ -1,0 +1,37 @@
+<mat-toolbar color="primary" class="navbar">
+  <div class="nav-left">
+    <a class="brand" routerLink="/">MyShop</a>
+  </div>
+
+  <div class="nav-links">
+    <a mat-button routerLink="/home" routerLinkActive="active">Home</a>
+    <a mat-button href="/products" routerLinkActive="active">Products</a>
+    <a mat-button routerLink="/about" routerLinkActive="active">About</a>
+    <a mat-button routerLink="/contact" routerLinkActive="active">Contact</a>
+  </div>
+
+  <div class="nav-right">
+    <button
+      mat-icon-button
+      class="mobile-only"
+      (click)="toggleMobileMenu()"
+    >
+      <mat-icon>{{ isMobileMenuOpen ? 'close' : 'menu' }}</mat-icon>
+    </button>
+    <div class="profile-menu desktop-only">
+      <button mat-icon-button [matMenuTriggerFor]="menu" (click)="NavBarMenu()">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </div>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item id="logout" (click)="LogOut()">Logout</button>
+    </mat-menu>
+  </div>
+
+  <div class="mobile-menu" [class.open]="isMobileMenuOpen">
+    <a routerLink="/home" (click)="toggleMobileMenu()">Home</a>
+    <a routerLink="/products" (click)="toggleMobileMenu()">Products</a>
+    <a routerLink="/about" (click)="toggleMobileMenu()">About</a>
+    <a routerLink="/contact" (click)="toggleMobileMenu()">Contact</a>
+  </div>
+</mat-toolbar>

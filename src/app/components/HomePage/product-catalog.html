@@ -1,0 +1,52 @@
+<div class="product-page">
+  <!-- Header Section -->
+  <header class="catalog-header">
+    <div class="user-info">
+      <span>👋 Welcome, <strong>{{ username }}</strong></span>
+    </div>
+    <a href="/cart">
+        <button mat-raised-button color="accent" routerLink="/cart" class="cart-button">
+          🛒 Go to Cart
+        </button>
+    </a>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  </header>
+
+  <!-- Product Catalog Section -->
+  <section class="catalog-container">
+    <h2 class="catalog-title">🌟 Product Catalog</h2>
+
+    <div class="product-grid">
+      <mat-card
+        *ngFor="let p of products"
+        class="product-card"
+        appearance="outlined"
+        matRipple
+      >
+        <img
+          mat-card-image
+          [src]="p.imageUrl"
+          alt=""
+          class="product-image"
+        />
+        <mat-card-content>
+          <h3 class="product-name">{{ p.title }}</h3>
+          <p class="product-desc">
+            {{ p.description || 'No description available.' }}
+          </p>
+          <div class="product-footer">
+            <span class="product-price">${{ p.price }}</span>
+            <button
+              mat-raised-button
+              color="primary"
+              class="buy-btn"
+              (click)="addToCart(p)"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+</div>

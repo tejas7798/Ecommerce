@@ -1,0 +1,128 @@
+.navbar {
+  background-color: black;
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 100px;
+}
+
+/* Brand (left side) */
+.nav-left .brand {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+}
+
+/* Nav links container */
+.nav-links {
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-left: auto; /* pushes links to the right */
+  margin-right: 1rem; /* adds a small gap before account menu */
+}
+
+/* Individual nav links */
+.nav-links a {
+    color: white;
+    font-size: small;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-decoration: none;
+  font-weight: 200;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #ffeb3b; /* subtle yellow hover */
+  cursor: grab;
+}
+
+.nav-links a.active {
+  border-bottom: 2px solid white;
+}
+
+/* Right side (menu icon area) */
+.nav-right {
+  position: absolute;
+  height: 30px;
+  background: white;
+  gap: 5;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  right: 1rem;
+  width: 40px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* hide desktop links */
+  }
+  .profile-menu {
+    display: none;  
+  }
+}
+
+
+/* ===== Visibility Helpers ===== */
+.desktop-only {
+  background: red;
+  display: flex;
+}
+
+.mobile-only {
+  display: none;
+}
+
+/* ===== Mobile Menu ===== */
+.mobile-menu {
+  z-index: 1;
+  position: absolute;
+  top: 64px;
+  left: 0;
+  width: 100%;
+  background: #3f51b5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  transform: translateY(-20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 9;
+}
+
+.mobile-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 0.75rem 2rem;
+  transition: background-color 0.2s ease;
+}
+
+.mobile-menu a:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Open State */
+.mobile-menu.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: inline-flex;
+  }
+}
