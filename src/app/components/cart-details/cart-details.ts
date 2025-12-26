@@ -35,8 +35,7 @@ export class CartDetails {
 
 
   ngOnInit(){
-    
-    this.username = localStorage.getItem('username') ?? "";
+    this.username = localStorage.getItem('username') ?? "Guest";
     this.getCartProductIds();
   }
 
