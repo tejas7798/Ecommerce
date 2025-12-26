@@ -1,48 +1,97 @@
 <div class="product-page">
   <!-- Header Section -->
-  <header class="catalog-header">
+  <header class="catalog-header"  *ngIf="!isCheckoutDone">
     <div class="user-info">
       <span><strong>{{ username }}</strong> Pls review Your products </span>
     </div>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <button (click)="getCartProductByUser()">Show Cart</button>
+        <button
+      mat-raised-button
+      color="primary"
+      class="checkout-btn"
+      (click)="checkOut()"
+    >
+      🛒 Checkout
+    </button>
   </header>
 
   <!-- Product Catalog Section -->
-  <section class="catalog-container">
-    <h2 class="catalog-title">Cart Items</h2>
+  <section class="catalog-container"  >
+    <div *ngIf="!isCheckoutDone">
 
-    <div class="product-grid">
-      <mat-card
-        *ngFor="let p of products"
-        class="product-card"
-        appearance="outlined"
-        matRipple
-      >
-        <img
-          mat-card-image
-          [src]="p?.imageUrl"
-          alt="Image"
-          class="product-image"
-        />
-        <mat-card-content>
-          <h3 class="product-name">{{ p.title }}</h3>
-          <p class="product-desc">
-            {{ p.description || 'No description available.' }}
-          </p>
-          <div class="product-footer">
-            <span class="product-price">${{ p.price }}</span>
-            <button
-              mat-raised-button
-              color="primary"
-              class="buy-btn"
-              (click)="removeFromCart(p)"
-            >
-              remove from Cart
-            </button>
-          </div>
-        </mat-card-content>
-      </mat-card>
+      <h2 class="catalog-title">Cart Items</h2>
+  
+      <div class="product-grid">
+        <mat-card
+          *ngFor="let p of products"
+          class="product-card"
+          appearance="outlined"
+          matRipple
+        >
+          <img
+            mat-card-image
+            [src]="p?.imageUrl"
+            alt="Image"
+            class="product-image"
+          />
+          <mat-card-content>
+            <h3 class="product-name">{{ p.title }}</h3>
+            <p class="product-desc">
+              {{ p.description || 'No description available.' }}
+            </p>
+            <div class="product-footer">
+              <span class="product-price">${{ p.price }}</span>
+              <button
+                mat-raised-button
+                color="primary"
+                class="buy-btn"
+                (click)="removeFromCart(p)"
+              >
+                remove from Cart
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+  
+      </div>
+
     </div>
+
+      <div class="success-container" *ngIf="isCheckoutDone">
+          <div class="success-card">
+            <div class="icon">✔</div>
+
+            <h1>Order Placed Successfully!</h1>
+            <p class="subtitle">
+              Thank you for your purchase. Your electronics are on the way 🚚
+            </p>
+
+            <div class="order-details">
+              <div class="detail-row">
+                <span>Order ID</span>
+                <strong>{{this.randomId}}</strong>
+              </div>
+              <div class="detail-row">
+                <span>Payment Status</span>
+                <strong class="paid">Cash On Delivery</strong>
+              </div>
+              <div class="detail-row">
+                <span>Payment Amount</span>
+                <strong class="amount">$ {{this.totalPrice}}</strong>
+              </div>
+              <div class="detail-row">
+                <span>Delivery</span>
+                <strong>3–5 Business Days</strong>
+              </div>
+            </div>
+
+            <div class="actions">
+              <a href="/products">
+                <button class="btn secondary">Continue Shopping</button>
+              </a>
+            </div>
+          </div>
+        </div>
+
   </section>
 </div>

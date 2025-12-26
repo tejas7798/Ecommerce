@@ -75,10 +75,7 @@ export class ProductCatalog {
 
     this.getToken(environment.getToken,payloadToken).subscribe({
       next: (res:any) => {
-        if(res.TOKEN !== ""){
-          localStorage.setItem("TOKEN", res.TOKEN);
-        }
-        let token = localStorage.getItem("TOKEN");
+        let token = res.TOKEN ?? '';
         // mockheaders = mockheaders.set("Authorization", `Bearer ${token}` );
         this.addProductToUser(url,body,token).subscribe({
           next: (res:any) => {

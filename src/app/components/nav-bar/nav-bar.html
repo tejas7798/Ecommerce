@@ -4,10 +4,10 @@
   </div>
 
   <div class="nav-links">
-    <a mat-button routerLink="/home" routerLinkActive="active">Home</a>
+    <a mat-button href="/home" routerLinkActive="active">Home</a>
     <a mat-button href="/products" routerLinkActive="active">Products</a>
-    <a mat-button routerLink="/about" routerLinkActive="active">About</a>
-    <a mat-button routerLink="/contact" routerLinkActive="active">Contact</a>
+    <a mat-button href="/about" routerLinkActive="active">About</a>
+    <a mat-button href="/contact" routerLinkActive="active">Contact</a>
   </div>
 
   <div class="nav-right">
@@ -24,14 +24,18 @@
       </button>
     </div>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item id="logout" (click)="LogOut()">Logout</button>
+      <a href="{{logInStatus ? '/' : '/login'}}">
+        <button mat-menu-item id="logout" (click)="LogOut()">{{this.logInStatus ? 'Logout' : 'Login'}}</button>
+      </a>
     </mat-menu>
   </div>
 
   <div class="mobile-menu" [class.open]="isMobileMenuOpen">
-    <a routerLink="/home" (click)="toggleMobileMenu()">Home</a>
-    <a routerLink="/products" (click)="toggleMobileMenu()">Products</a>
-    <a routerLink="/about" (click)="toggleMobileMenu()">About</a>
-    <a routerLink="/contact" (click)="toggleMobileMenu()">Contact</a>
+    <a href="/home" (click)="toggleMobileMenu()">Home</a>
+    <a  href="/products" >Products</a>
+    <a  href="/about" >About</a>
+    <a  href="/contact">Contact</a>
+    <a  href="{{this.logInStatus  ? '/' : '/login'}}" >{{this.logInStatus ? 'Logout' : 'Login'}}</a>
+
   </div>
 </mat-toolbar>

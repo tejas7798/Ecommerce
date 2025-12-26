@@ -24,14 +24,15 @@ export class HomePage {
     return this.http.get(this.apiUrl);
   }
 
-  addProductToUser(url: any, body: {}, customHeaders: { [key: string]: string }){
+  addProductToUser(url: any, body: {}, token:any){
+    console.log('Calling API:', url);
    // 1. Initialize HttpHeaders
     let mockheaders = new HttpHeaders();
 
-        mockheaders = mockheaders.set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1IiwiZW1haWwiOiJ0ZWphc0BleGFtcGxlLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2MjY5OTQwNSwiZXhwIjoxNzYyNzAzMDA1fQ.6FMwoZNq640g5JZw84cO6X2Y0InM9YbT32Ejn0cqX10");
+    mockheaders = mockheaders.set("Authorization", `Bearer ${token}`);
     // 3. Create the options object for the request
     let options = {
-      headers: mockheaders
+      headers: mockheaders  
     };
     return this.http.post(url,body,options);
   }
@@ -42,6 +43,7 @@ export class HomePage {
   }
 
   getToken(url:string , body: {}){
+    console.log('Calling API:', url);
     return this.http.post(url,body);
   }
 
@@ -73,23 +75,18 @@ export class HomePage {
 
     this.getToken(environment.getToken,payloadToken).subscribe({
       next: (res:any) => {
-        if(res.TOKEN !== ""){
-          localStorage.setItem("TOKEN", res.TOKEN);
-        }
-        let token = localStorage.getItem("TOKEN");
-        const headersToSet = {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        };
+        let token = res.TOKEN ?? '';
         // mockheaders = mockheaders.set("Authorization", `Bearer ${token}` );
-        this.addProductToUser(url,body,headersToSet).subscribe({
+        this.addProductToUser(url,body,token).subscribe({
           next: (res:any) => {
             if(res.modifiedCount === 1){
               alert("Added to Cart");
             }
           },
           error: (err:any) => {
-            console.error('Error Adding products:', err);
+            if(err.status === 401){
+              alert("please Log in to add items to cart");
+            }
           }
         });  
       },

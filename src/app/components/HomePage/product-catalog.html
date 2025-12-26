@@ -21,11 +21,10 @@
         *ngFor="let p of products"
         class="product-card"
         appearance="outlined"
-        matRipple
       >
         <img
           mat-card-image
-          [src]="p.imageUrl"
+          [src]="p.imageUrl || 'assets/no-image.png'"
           alt=""
           class="product-image"
         />

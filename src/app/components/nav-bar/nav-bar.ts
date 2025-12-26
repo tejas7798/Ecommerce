@@ -14,27 +14,20 @@ import { Router } from '@angular/router';
 })
 export class NavBar {
   isMobileMenuOpen = false;
-
+  logInStatus = false;
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
   constructor(private router:Router) { }
 
   NavBarMenu(){
-    
     const userName =localStorage.getItem('username')
     if(userName == "Guest" || userName == null){
-    const logoutEl = document.getElementById('logout');
-      if (logoutEl) {
-        logoutEl.innerHTML = `<a href='/login'>Log In</a>`;
-      }
     }else{
-      const logoutEl = document.getElementById('logout'); 
-      if (logoutEl) { 
-        logoutEl.innerHTML = `<a href='/' (click)="LogOut()">Log Out</a>`;
-      }
-    } 
-  }
+      this.logInStatus = true;
+    }
+  } 
+  
 
   LogOut(){
     localStorage.setItem('username', "Guest");

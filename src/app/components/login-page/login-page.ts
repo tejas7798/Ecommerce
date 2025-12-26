@@ -33,10 +33,12 @@ export class LoginPage {
       email : this.loginFormGroup.value.email,
       password : this.loginFormGroup.value.password
     }
+    const username = this.loginFormGroup.value.email?.split('@')[0] || "";
     this.getUserByEmailId(body).subscribe({
       next: (res:any) => {
+        console.log("RESPOSNE from",res);
         if(res.status === 200){
-          localStorage.setItem("username",res.username);
+          localStorage.setItem("username",username);
           this.router.navigate(['/products']); 
         }else{
           this.router.navigate(['/login']); 

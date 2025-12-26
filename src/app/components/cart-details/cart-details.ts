@@ -20,8 +20,11 @@ export class CartDetails {
   private getProductApiUrl = environment.getProductById; 
   private deleteProductsFromCart = environment.deleteProductsFromCart;
 
+  
+  public totalPrice = 0;
   public username :String ="";
   public products: any = [];
+  public randomId = "#ELX-458921";
   cartProductIds :any =[];
   constructor(private router:Router,private http: HttpClient) { }
 
@@ -76,11 +79,7 @@ export class CartDetails {
     console.log("Payload Token "+ payloadToken);
     this.getToken(environment.getToken,payloadToken).subscribe({
       next: (res:any) => {
-        if(res.TOKEN !== ""){
-          console.log("is the TOKEN : " +res.TOKEN )
-          localStorage.setItem("TOKEN", res.TOKEN);
-        }
-        let token = localStorage.getItem("TOKEN");
+        let token = res.TOKEN ?? "";
         this.removeFromCartUser(url,token,body).subscribe({
           next: (res:any) => {
             if(res.modifiedCount === 1){
@@ -107,11 +106,13 @@ export class CartDetails {
       for(let id of this.cartProductIds){
         
         this.getProductsById(id).subscribe({
-            next :(data:any)=>{
-              this.products.push(data);
+          next :(data:any)=>{
+            this.products.push(data);
+            this.totalPrice += data.price;
+            console.log("Cart Product Ids :" + this.cartProductIds);
             },
             error : (err:any)=>{
-              console.log("Error in finding Product :" + err);
+              console.log("Error in finding Product :" + JSON.stringify(err));
             }
         });
       }
@@ -145,4 +146,13 @@ export class CartDetails {
     return this.http.get(url);
   }
 
+  isCheckoutDone = false;
+
+  checkOut(){
+    
+    this.randomId =  "#ELX-"+ Math.round(Math.random()*100000);
+  // here you can call API / payment logic
+  this.isCheckoutDone = true;
+  }
+  
 }
